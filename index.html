@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prabhat Neupane | Portfolio & Systems Developer</title>
+  <meta name="description" content="Portfolio of Prabhat Neupane - Software Developer specializing in C, C++, JavaScript, and Web Architecture.">
+  
+  <!-- Google Fonts & CSS Link -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ==========================================================================
+     1. NAVIGATION BAR
+     ========================================================================== -->
+  <header class="header">
+    <div class="container nav-container">
+      <a href="#hero" class="logo">
+        &lt;<span class="logo-accent">Prabhat</span> /&gt;
+      </a>
+
+      <nav class="nav-menu" id="nav-menu">
+        <ul class="nav-list">
+          <li><a href="#about" class="nav-link">About</a></li>
+          <li><a href="#projects" class="nav-link">Projects</a></li>
+          <li><a href="#skills" class="nav-link">Skills</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <!-- Theme Toggle Button -->
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+          <svg class="sun-icon" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg class="moon-icon" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+
+        <!-- Mobile Menu Hamburger -->
+        <button id="hamburger" class="hamburger" aria-label="Toggle Navigation Menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ==========================================================================
+       2. HERO SECTION
+       ========================================================================== -->
+    <section id="hero" class="hero-section">
+      <div class="bg-grid"></div>
+      <div class="container hero-container">
+        <div class="hero-content">
+          <div class="badge">
+            <span class="status-dot"></span> Available for Projects & Hire
+          </div>
+          <h1 class="hero-title">
+            Hi, I'm <span class="highlight">Prabhat Neupane</span>
+          </h1>
+          <div class="hero-subtitle">
+            Focusing on <span id="typing-text" class="typing-text"></span><span class="cursor"></span>
+          </div>
+          <p class="hero-description">
+            Passionate software enthusiast crafting high-performance C/C++ applications, dynamic web applications, and intuitive interactive user interfaces.
+          </p>
+          <div class="hero-cta">
+            <a href="#projects" class="btn btn-primary">View My Work</a>
+            <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+          </div>
+        </div>
+
+        <!-- Interactive Code Display Card -->
+        <div class="hero-visual">
+          <div class="code-card">
+            <div class="code-header">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+              <span class="code-title">developer.cpp</span>
+            </div>
+            <div class="code-body">
+<pre><code><span class="keyword">#include</span> <span class="string">&lt;iostream&gt;</span>
+
+<span class="type">class</span> Developer {
+<span class="keyword">public</span>:
+    std::string name = <span class="string">"Prabhat Neupane"</span>;
+    std::string core = <span class="string">"C / C++ / JS"</span>;
+    
+    <span class="type">void</span> build() {
+        std::cout &lt;&lt; <span class="string">"Creating robust software..."</span>;
+    }
+};</code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+       3. PROJECTS SECTION
+       ========================================================================== -->
+    <section id="projects" class="section">
+      <div class="container">
+        <h2 class="section-title">
+          <span class="accent-number">01.</span> Featured Projects
+        </h2>
+
+        <!-- Filter Controls -->
+        <div class="filter-container">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="javascript">JavaScript</button>
+          <button class="filter-btn" data-filter="c-cpp">C / C++</button>
+          <button class="filter-btn" data-filter="web">Web Architecture</button>
+        </div>
+
+        <!-- Dynamic Projects Grid (Rendered via script.js) -->
+        <div id="projects-grid" class="projects-grid"></div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+       4. SKILLS SECTION
+       ========================================================================== -->
+    <section id="skills" class="section">
+      <div class="container">
+        <h2 class="section-title">
+          <span class="accent-number">02.</span> Technical Skills
+        </h2>
+
+        <div class="skills-grid">
+          <div class="skill-card">
+            <div class="skill-icon">⚡</div>
+            <h3>Systems Programming</h3>
+            <ul class="skill-list">
+              <li>C Language (POSIX / OS)</li>
+              <li>C++ (OOP & STL)</li>
+              <li>Memory Allocation & Optimization</li>
+              <li>Data Structures & Algorithms</li>
+            </ul>
+          </div>
+
+          <div class="skill-card">
+            <div class="skill-icon">🌐</div>
+            <h3>Web Development</h3>
+            <ul class="skill-list">
+              <li>JavaScript (ES6+)</li>
+              <li>HTML5 & Semantic Markup</li>
+              <li>CSS3 / Grid / Flexbox</li>
+              <li>Responsive Design & UI/UX</li>
+            </ul>
+          </div>
+
+          <div class="skill-card">
+            <div class="skill-icon">🛠️</div>
+            <h3>Tools & Workflow</h3>
+            <ul class="skill-list">
+              <li>Git & GitHub Version Control</li>
+              <li>Linux / Terminal Utilities</li>
+              <li>VS Code Debugging</li>
+              <li>Performance Benchmarking</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+       5. CONTACT SECTION
+       ========================================================================== -->
+    <section id="contact" class="section">
+      <div class="container">
+        <h2 class="section-title center">
+          <span class="accent-number">03.</span> Get In Touch
+        </h2>
+        <p class="contact-subtitle">
+          Whether you have a question, a potential project, or just want to connect, feel free to drop a message!
+        </p>
+
+        <!-- Form with NO action="#" to prevent jumping to top -->
+        <form id="contact-form" class="contact-form">
+          <div class="form-group">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" required placeholder="John Doe">
+          </div>
+          <div class="form-group">
+            <label for="email">Your Email</label>
+            <input type="email" id="email" required placeholder="john@example.com">
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" rows="5" required placeholder="How can I help you?"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Send Message</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==========================================================================
+     6. FOOTER
+     ========================================================================== -->
+  <footer class="footer">
+    <div class="container footer-container">
+      <p>&copy; <span id="current-year"></span> Prabhat Neupane. All rights reserved.</p>
+      <div class="social-links">
+        <a href="https://github.com" target="_blank" aria-label="GitHub">GitHub</a>
+        <a href="https://linkedin.com" target="_blank" aria-label="LinkedIn">LinkedIn</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==========================================================================
+     7. MOCK AI CHATBOT WIDGET
+     ========================================================================== -->
+  <div class="chatbot-wrapper">
+    <!-- Floating Chat Toggle Button -->
+    <button id="chat-toggle" class="chat-toggle" type="button" aria-label="Open AI Assistant Chat">
+      <svg class="chat-open-icon" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+      </svg>
+      <svg class="chat-close-icon hidden" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+
+    <!-- Chat Box Panel -->
+    <div id="chat-panel" class="chat-panel hidden">
+      <div class="chat-header">
+        <div class="chat-title">
+          <span class="status-dot"></span>
+          <span>Prabhat's AI Guide</span>
+        </div>
+        <button id="chat-close" class="chat-close-btn" type="button" aria-label="Close Chat">&times;</button>
+      </div>
+      
+      <!-- Scrollable Message Log -->
+      <div id="chat-messages" class="chat-messages">
+        <div class="message bot">
+          Hello! I'm Prabhat's virtual assistant. Ask me about his projects, skills, or experience!
+        </div>
+      </div>
+
+      <!-- Clean Form without action="#" -->
+      <form id="chat-form" class="chat-input-area">
+        <input type="text" id="chat-input" placeholder="Type a message..." required autocomplete="off">
+        <button type="submit" aria-label="Send message">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <line x1="22" y1="2" x2="11" y2="13"></line>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+          </svg>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- JavaScript Entry Point -->
+  <script src="script.js"></script>
+</body>
+</html>
