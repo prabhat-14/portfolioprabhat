@@ -1,71 +1,65 @@
-// api/chat.js - Secure Serverless Proxy Endpoint
-
 export default async function handler(req, res) {
-  // 1. Block any non-POST requests for security
+  // 1. Ensure method is POST
   if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method Not Allowed' });
+    return res.status(405).json({ error: 'Method Not Allowed. Please send a POST request.' });
+  }
+
+  // 2. Extract message from request body
+  const { message } = req.body || {};
+
+  if (!message || typeof message !== 'string' || message.trim() === '') {
+    return res.status(400).json({ error: 'Bad Request: "message" field is required.' });
+  }
+
+  // 3. Retrieve environment variable from Vercel
+  const apiKey = process.env.GEMINI_API_KEY;
+
+  if (!apiKey) {
+    console.error("Vercel Backend Error: GEMINI_API_KEY environment variable is not defined.");
+    return res.status(500).json({ error: 'Server Configuration Error: GEMINI_API_KEY is missing on Vercel.' });
   }
 
   try {
-    const { message } = req.body;
-
-    if (!message || typeof message !== 'string') {
-      return res.status(400).json({ error: 'A valid user message is required.' });
-    }
-
-    // 2. Read the secret key from the .env environment variable
-    const apiKey = process.env.GEMINI_API_KEY;
-
-    if (!apiKey) {
-      console.error("Missing GEMINI_API_KEY in environment variables.");
-      return res.status(500).json({ error: 'Server misconfiguration.' });
-    }
-
-    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
-
-    // 3. Define System Context & Instructions
-    const payload = {
-      systemInstruction: {
-        parts: [{
-          text: `You are Prabhat Neupane's AI Virtual Assistant on his portfolio website.
-          - Knowledge: Prabhat specializes in C, C++, JavaScript, HTML5, CSS3, Systems Programming, and Web Development.
-          - Style: Professional, friendly, and concise (maximum 3 sentences per reply).
-          - Objective: Answer visitor queries and encourage them to check out Prabhat's project portfolio or use the contact form.`
-        }]
-      },
-      contents: [
-        {
-          role: 'user',
-          parts: [{ text: message }]
-        }
-      ],
-      generationConfig: {
-        temperature: 0.7,
-        maxOutputTokens: 200
+    // 4. Call Google Gemini API
+    const response = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          contents: [
+            {
+              parts: [{ text: message }]
+            }
+          ]
+        }),
       }
-    };
-
-    // 4. Server-to-Server request to Google Gemini
-    const response = await fetch(geminiUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    });
-
-    if (!response.ok) {
-      const errDetails = await response.text();
-      console.error("Gemini API Error details:", errDetails);
-      return res.status(response.status).json({ error: 'Failed to fetch response from Gemini API.' });
-    }
+    );
 
     const data = await response.json();
-    const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "I'm having trouble phrasing an answer right now. Please try again!";
 
-    // 5. Send clean response back to browser
-    return res.status(200).json({ reply });
+    // 5. Check if Gemini API returned an HTTP error
+    if (!response.ok) {
+      console.error("Gemini API Error Response:", data);
+      return res.status(response.status).json({ 
+        error: data.error?.message || 'Failed to communicate with Google Gemini API.' 
+      });
+    }
 
-  } catch (error) {
-    console.error("Internal Proxy Error:", error);
-    return res.status(500).json({ error: 'Internal Server Error' });
+    // 6. Safely extract generated text from response
+    const replyText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+
+    if (!replyText) {
+      return res.status(500).json({ error: 'No response text returned from Gemini API.' });
+    }
+
+    // 7. Send successful response back to frontend
+    return res.status(200).json({ reply: replyText });
+
+  } catch (err) {
+    console.error("Serverless Function Exception:", err);
+    return res.status(500).json({ error: 'Internal Server Error while reaching backend API.' });
   }
 }
